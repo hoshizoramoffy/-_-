@@ -55,8 +55,8 @@
             border-color: #FBAED2; 
         }
 
-        /* ボタン */
-        button { 
+        /* ひらくボタン */
+        .open-btn { 
             margin-top: 20px;
             padding: 12px 35px; 
             font-size: 16px; 
@@ -69,7 +69,7 @@
             box-shadow: 0 4px 10px rgba(255, 140, 163, 0.3);
             transition: background 0.2s, transform 0.2s;
         }
-        button:hover {
+        .open-btn:hover {
             background: #ff718d;
             transform: translateY(-1px);
         }
@@ -83,29 +83,58 @@
         #secret-area h3 {
             color: #ff6b8b;
             font-size: 18px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
+        
+        /* メッセージと保存方法の案内テキスト */
+        .thank-you-msg {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .save-tip {
+            font-size: 12px;
+            color: #8c6b73;
+            margin-bottom: 15px;
+            background: #fff0f3;
+            padding: 6px 12px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* オリジナル画像 */
         #secret-area img { 
             max-width: 100%; 
             height: auto; 
             border-radius: 15px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
         }
 
-        /* ダウンロードリンクのボタン */
-        .download-btn {
-            display: inline-block;
+        /* YouTubeリンク用のボタングループ */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
             margin-top: 15px;
-            padding: 10px 20px;
+        }
+        .yt-btn {
+            flex: 1;
+            display: inline-block;
+            padding: 10px 15px;
             background-color: #ff6b8b;
             color: white;
             text-decoration: none;
             border-radius: 20px;
             font-weight: bold;
             font-size: 14px;
+            box-shadow: 0 4px 10px rgba(255, 107, 139, 0.2);
+            transition: background 0.2s, transform 0.2s;
         }
-        .download-btn:hover {
+        .yt-btn:hover {
             background-color: #ff476c;
+            transform: translateY(-1px);
         }
 
         /* 正解したとき、ふわっと表示させるアニメーション */
@@ -122,23 +151,31 @@
         <h2>あいことばは？</h2>
         <input type="text" id="password-input" placeholder="ここに入力してね">
         <br>
-        <button onclick="checkPassword()">ひらく</button>
+        <button class="open-btn" onclick="checkPassword()">ひらく</button>
     </div>
 
     <div id="secret-area">
         <h3>せいかい！おめでとう 🍓</h3>
         
-     <img src="present.jpg" alt="特典画像" type="image/png">
+        <div class="thank-you-msg">
+            ご参加ありがとうございました！<br>
+            これからもYouTube見てね✨（見てねくま！）
+        </div>
+        
+        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
         
         <br>
+        <img src="present.jpg" alt="特典画像" type="image/png">
         
-        <a href="ここにダウンロードURLを入れる" class="download-btn" target="_blank">ここからダウンロードする</a>
+        <div class="btn-group">
+            <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
+            <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
+        </div>
     </div>
 </div>
 
 <script>
 function checkPassword() {
-    // 入力された文字を取得（前後の空白を消し、全角を半角に、カタカナをひらがなに変換しやすくするために小文字化）
     let input = document.getElementById('password-input').value.trim();
     
     // カタカナの「ダイスキ」をひらがなの「だいすき」に変換する処理
@@ -149,7 +186,6 @@ function checkPassword() {
     const secretArea = document.getElementById('secret-area');
     const inputStage = document.getElementById('input-stage');
     
-    // 「だいすき」または「ダイスキ（自動変換後）」なら正解
     if (input === 'だいすき') {
         inputStage.style.display = 'none'; 
         secretArea.style.display = 'block'; 
