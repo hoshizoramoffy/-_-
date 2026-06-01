@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレゼントページ</title>
+    <style>
+        /* 全体の背景（ご指定のミルキーピンク） */
+        body { 
+            background-color: #FBAED2; 
+            color: #5c3a41; 
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 入力エリアを囲むボックス */
+        .card { 
+            background: #ffffff; 
+            padding: 40px 30px; 
+            width: 100%;
+            max-width: 400px;
+            text-align: center; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4); 
+        }
+
+        /* 「あいことばは？」の文字 */
+        h2 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #ff6b8b; 
+            letter-spacing: 1px;
+        }
+
+        /* 入力フォーム */
+        input { 
+            padding: 12px 15px; 
+            font-size: 16px; 
+            width: 80%; 
+            border: 2px solid #ffe3e8;
+            border-radius: 30px;
+            outline: none;
+            text-align: center;
+            color: #5c3a41;
+            background-color: #fffafb;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #FBAED2; 
+        }
+
+        /* ボタン */
+        button { 
+            margin-top: 20px;
+            padding: 12px 35px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            background: #ff8ca3; 
+            color: white; 
+            border: none; 
+            border-radius: 30px; 
+            box-shadow: 0 4px 10px rgba(255, 140, 163, 0.3);
+            transition: background 0.2s, transform 0.2s;
+        }
+        button:hover {
+            background: #ff718d;
+            transform: translateY(-1px);
+        }
+
+        /* 隠されている画像エリア */
+        #secret-area { 
+            display: none; 
+            margin-top: 25px; 
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        #secret-area h3 {
+            color: #ff6b8b;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        #secret-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* ダウンロードリンクのボタン */
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff6b8b;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .download-btn:hover {
+            background-color: #ff476c;
+        }
+
+        /* 正解したとき、ふわっと表示させるアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="input-stage">
+        <h2>あいことばは？</h2>
+        <input type="text" id="password-input" placeholder="ここに入力してね">
+        <br>
+        <button onclick="checkPassword()">ひらく</button>
+    </div>
+
+    <div id="secret-area">
+        <h3>せいかい！おめでとう 🍓</h3>
+        
+        <img src="ここに画像のURLを入れる.jpg" alt="オリジナル画像">
+        
+        <br>
+        
+        <a href="ここにダウンロードURLを入れる" class="download-btn" target="_blank">ここからダウンロードする</a>
+    </div>
+</div>
+
+<script>
+function checkPassword() {
+    // 入力された文字を取得（前後の空白を消し、全角を半角に、カタカナをひらがなに変換しやすくするために小文字化）
+    let input = document.getElementById('password-input').value.trim();
+    
+    // カタカナの「ダイスキ」をひらがなの「だいすき」に変換する処理
+    input = input.replace(/[\u30a1-\u30f6]/g, function(match) {
+        return String.fromCharCode(match.charCodeAt(0) - 0x60);
+    });
+
+    const secretArea = document.getElementById('secret-area');
+    const inputStage = document.getElementById('input-stage');
+    
+    // 「だいすき」または「ダイスキ（自動変換後）」なら正解
+    if (input === 'だいすき') {
+        inputStage.style.display = 'none'; 
+        secretArea.style.display = 'block'; 
+    } else {
+        alert('あいことばがちがうみたい…？もう一度入力してみてね！');
+    }
+}
+</script>
+
+</body>
+</html>
