@@ -53,10 +53,10 @@
             color: #ff6b8b;
         }
         
-        /* 💡 確実に反応する「画像をえらぶ」カスタムボタン */
-        .custom-file-btn {
+        /* 💡 100%バグらない「画像をえらぶ」デザインラベル */
+        .custom-file-label {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 10px 25px;
             background: #ffffff;
             border: 2px solid #ffb6c1;
             border-radius: 30px;
@@ -67,8 +67,13 @@
             box-shadow: 0 2px 5px rgba(255, 182, 193, 0.2);
             transition: all 0.2s;
         }
-        .custom-file-btn:hover {
+        .custom-file-label:hover {
             background: #ffeff3;
+        }
+        
+        /* 本物の黒い選択肢（input）は完全に隠す */
+        .hidden-file-input {
+            display: none !important;
         }
         
         /* 選択されたファイル名を表示する場所 */
@@ -177,67 +182,3 @@
         }
         .yt-btn:hover {
             background-color: #ff476c;
-            transform: translateY(-1px);
-        }
-
-        /* 正解したとき、ふわっと表示させるアニメーション */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <div id="input-stage">
-        <h2>とくてん獲得条件 🍓</h2>
-        
-        <div class="upload-zone">
-            <p>2人のチャンネル登録がわかる<br>スクリーンショットを添付してね！</p>
-            
-            <button type="button" class="custom-file-btn" onclick="document.getElementById('screenshot-input').click();">
-                画像をえらぶ
-            </button>
-            <input type="file" id="screenshot-input" accept="image/*" style="display: none;" onchange="updateFileName()">
-            
-            <div id="file-name">まだ画像がえらばれていません</div>
-        </div>
-
-        <input type="text" id="password-input" class="pwd-input" placeholder="あつめた合言葉を入力してね">
-        <br>
-        <button class="open-btn" onclick="checkPassword()">ひらく</button>
-    </div>
-
-    <div id="secret-area">
-        <h3>せいかい！おめでとう 🍓</h3>
-        
-        <div class="thank-you-msg">
-            ご参加ありがとうございました！<br>
-            これからもYouTube見てね✨（見てねくま！）
-        </div>
-        
-        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
-        
-        <br>
-        <img src="present.jpg" alt="オリジナル画像" type="image/png">
-        
-        <div class="btn-group">
-            <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
-            <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
-        </div>
-    </div>
-</div>
-
-<script>
-// 画像が選ばれたらファイル名を表示する処理
-function updateFileName() {
-    const input = document.getElementById('screenshot-input');
-    const fileNameDiv = document.getElementById('file-name');
-    if (input.files.length > 0) {
-        fileNameDiv.innerText = "選択済み： " + input.files[0].name;
-        fileNameDiv.style.color = "#ff6b8b";
-        fileNameDiv.style.fontWeight = "bold";
-    } else {
-        fileNameDiv.innerText = "まだ画像がえらばれていません";
-        fileNameDiv.style.color = "#8c6b73
