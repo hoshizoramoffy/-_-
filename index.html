@@ -30,7 +30,7 @@
             box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4); 
         }
 
-        /* 「あいことばは？」の文字 */
+        /* 「とくてん獲得条件」の文字 */
         h2 {
             font-size: 24px;
             margin-bottom: 20px;
@@ -52,29 +52,28 @@
             font-weight: bold;
             color: #ff6b8b;
         }
-        /* ボタンのデザイン */
-        .file-label {
+        
+        /* 💡 確実に反応する「画像をえらぶ」カスタムボタン */
+        .custom-file-btn {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 20px;
             background: #ffffff;
             border: 2px solid #ffb6c1;
-            border-radius: 20px;
+            border-radius: 30px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             color: #ff6b8b;
+            box-shadow: 0 2px 5px rgba(255, 182, 193, 0.2);
             transition: all 0.2s;
         }
-        .file-label:hover {
+        .custom-file-btn:hover {
             background: #ffeff3;
         }
-        /* 本物の選択ボタンは隠す */
-        #screenshot-input {
-            display: none;
-        }
+        
         /* 選択されたファイル名を表示する場所 */
         #file-name {
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 12px;
             color: #8c6b73;
             word-break: break-all;
@@ -91,6 +90,7 @@
             text-align: center;
             color: #5c3a41;
             background-color: #fffafb;
+            margin-top: 10px;
             transition: border-color 0.3s;
         }
         .pwd-input:focus {
@@ -134,6 +134,7 @@
             line-height: 1.6;
             margin-bottom: 10px;
             font-weight: bold;
+            color: #5c3a41;
         }
         .save-tip {
             font-size: 12px;
@@ -191,3 +192,52 @@
 <div class="card">
     <div id="input-stage">
         <h2>とくてん獲得条件 🍓</h2>
+        
+        <div class="upload-zone">
+            <p>2人のチャンネル登録がわかる<br>スクリーンショットを添付してね！</p>
+            
+            <button type="button" class="custom-file-btn" onclick="document.getElementById('screenshot-input').click();">
+                画像をえらぶ
+            </button>
+            <input type="file" id="screenshot-input" accept="image/*" style="display: none;" onchange="updateFileName()">
+            
+            <div id="file-name">まだ画像がえらばれていません</div>
+        </div>
+
+        <input type="text" id="password-input" class="pwd-input" placeholder="あつめた合言葉を入力してね">
+        <br>
+        <button class="open-btn" onclick="checkPassword()">ひらく</button>
+    </div>
+
+    <div id="secret-area">
+        <h3>せいかい！おめでとう 🍓</h3>
+        
+        <div class="thank-you-msg">
+            ご参加ありがとうございました！<br>
+            これからもYouTube見てね✨（見てねくま！）
+        </div>
+        
+        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
+        
+        <br>
+        <img src="present.jpg" alt="オリジナル画像" type="image/png">
+        
+        <div class="btn-group">
+            <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
+            <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
+        </div>
+    </div>
+</div>
+
+<script>
+// 画像が選ばれたらファイル名を表示する処理
+function updateFileName() {
+    const input = document.getElementById('screenshot-input');
+    const fileNameDiv = document.getElementById('file-name');
+    if (input.files.length > 0) {
+        fileNameDiv.innerText = "選択済み： " + input.files[0].name;
+        fileNameDiv.style.color = "#ff6b8b";
+        fileNameDiv.style.fontWeight = "bold";
+    } else {
+        fileNameDiv.innerText = "まだ画像がえらばれていません";
+        fileNameDiv.style.color = "#8c6b73
