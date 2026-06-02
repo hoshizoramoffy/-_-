@@ -28,11 +28,13 @@
             text-align: center; 
             border-radius: 20px; 
             box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4); 
+            display: block !important; /* 絶対に消えないように強制 */
         }
 
         /* 「とくてん獲得条件」の文字 */
         h2 {
             font-size: 24px;
+            margin-top: 0;
             margin-bottom: 20px;
             color: #ff6b8b; 
             letter-spacing: 1px;
@@ -48,40 +50,25 @@
             border: 2px dashed #ffb6c1;
         }
         .upload-zone p {
-            margin: 0 0 12px 0;
+            margin: 0 0 15px 0;
             font-weight: bold;
             color: #ff6b8b;
         }
         
-        /* 💡 100%バグらない「画像をえらぶ」デザインラベル */
-        .custom-file-label {
-            display: inline-block;
-            padding: 10px 25px;
-            background: #ffffff;
-            border: 2px solid #ffb6c1;
-            border-radius: 30px;
-            cursor: pointer;
+        /* 確実な動作のために標準スタイルを活かした選択フォーム */
+        .safe-file-input {
             font-size: 14px;
-            font-weight: bold;
+            color: #5c3a41;
+            padding: 5px;
+            max-width: 100%;
+        }
+        
+        /* カスタムファイル名表示エリア（補助用） */
+        #file-status-text {
+            margin-top: 10px;
+            font-size: 13px;
             color: #ff6b8b;
-            box-shadow: 0 2px 5px rgba(255, 182, 193, 0.2);
-            transition: all 0.2s;
-        }
-        .custom-file-label:hover {
-            background: #ffeff3;
-        }
-        
-        /* 本物の黒い選択肢（input）は完全に隠す */
-        .hidden-file-input {
-            display: none !important;
-        }
-        
-        /* 選択されたファイル名を表示する場所 */
-        #file-name {
-            margin-top: 12px;
-            font-size: 12px;
-            color: #8c6b73;
-            word-break: break-all;
+            font-weight: bold;
         }
 
         /* 入力フォーム */
@@ -104,7 +91,7 @@
 
         /* ひらくボタン */
         .open-btn { 
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 12px 35px; 
             font-size: 16px; 
             font-weight: bold;
@@ -182,3 +169,97 @@
         }
         .yt-btn:hover {
             background-color: #ff476c;
+            transform: translateY(-1px);
+        }
+
+        /* ふわっと表示させるアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="input-stage">
+        <h2>とくてん獲得条件 🍓</h2>
+        
+        <div class="upload-zone">
+            <p>2人のチャンネル登録がわかる<br>スクリーンショットを添付してね！</p>
+            
+            <input type="file" id="screenshot-input" class="safe-file-input" accept="image/*" onchange="updateFileStatus()">
+            
+            <div id="file-status-text"></div>
+        </div>
+
+        <input type="text" id="password-input" class="pwd-input" placeholder="あつめた合言葉を入力してね">
+        <br>
+        <button class="open-btn" onclick="checkPassword()">ひらく</button>
+    </div>
+
+    <div id="secret-area">
+        <h3>せいかい！おめでとう 🍓</h3>
+        
+        <div class="thank-you-msg">
+            ご参加ありがとうございました！<br>
+            これからもYouTube見てね✨（見てねくま！）
+        </div>
+        
+        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
+        
+        <br>
+        <img src="present.jpg" alt="オリジナル画像" type="image/png">
+        
+        <div class="btn-group">
+            <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
+            <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
+        </div>
+    </div>
+</div>
+
+<script>
+// 画像が選択された時に確実に実行される処理
+function updateFileStatus() {
+    const input = document.getElementById('screenshot-input');
+    const statusDiv = document.getElementById('file-status-text');
+    
+    if (input.files && input.files.length > 0) {
+        // 画像が正常に選択された場合
+        statusDiv.innerText = "✨ 画像が正常に添付されました！";
+        statusDiv.style.color = "#ff476c";
+    } else {
+        // 選択がキャンセルされた場合
+        statusDiv.innerText = "";
+    }
+}
+
+function checkPassword() {
+    let input = document.getElementById('password-input').value.trim();
+    
+    // カタカナの「ダイスキ」をひらがなの「だいすき」に変換する処理
+    input = input.replace(/[\u30a1-\u30f6]/g, function(match) {
+        return String.fromCharCode(match.charCodeAt(0) - 0x60);
+    });
+
+    // スクショ画像が添付されているかチェック
+    const fileInput = document.getElementById('screenshot-input');
+    const isFileUploaded = fileInput.files && fileInput.files.length > 0;
+
+    const secretArea = document.getElementById('secret-area');
+    const inputStage = document.getElementById('input-stage');
+    
+    // 判定処理
+    if (!isFileUploaded) {
+        alert('チャンネル登録のスクリーンショットを添付してね！');
+    } else if (input === 'だいすき') {
+        inputStage.style.display = 'none'; 
+        secretArea.style.display = 'block'; 
+    } else {
+        alert('あいことばがちがうみたい…？もう一度入力してみてね！');
+    }
+}
+</script>
+
+</body>
+</html>
