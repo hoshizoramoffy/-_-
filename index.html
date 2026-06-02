@@ -3,72 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特典ゲットページ</title>
+    <title>プレゼントページ</title>
     <style>
-        body { background-color: #FBAED2; color: #5c3a41; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        .card { background: #ffffff; padding: 40px 30px; width: 100%; max-width: 400px; text-align: center; border-radius: 20px; box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4); }
-        h2 { color: #ff6b8b; margin-bottom: 20px; }
+        /* 全体の背景（ご指定のミルキーピンク） */
+        body { 
+            background-color: #FBAED2; 
+            color: #5c3a41; 
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 入力エリアを囲むボックス */
+        .card { 
+            background: #ffffff; 
+            padding: 40px 30px; 
+            width: 100%;
+            max-width: 400px;
+            text-align: center; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4); 
+        }
+
+        /* 「あいことばは？」の文字 */
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff6b8b; 
+            letter-spacing: 1px;
+        }
+
+        /* スクショアップロードエリア */
+        .upload-zone {
+            background: #fff0f3;
+            padding: 20px 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border: 2px dashed #ffb6c1;
+        }
+        .upload-zone p {
+            margin: 0 0 12px 0;
+            font-weight: bold;
+            color: #ff6b8b;
+        }
+        /* 本物のアップロードボタンは隠して可愛くする */
+        .file-label {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #ffffff;
+            border: 1px solid #ffb6c1;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: #ff6b8b;
+            transition: all 0.2s;
+        }
+        .file-label:hover {
+            background: #ffeff3;
+        }
+        #screenshot-input {
+            display: none;
+        }
+        /* 選択されたファイル名を表示する場所 */
+        #file-name {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #8c6b73;
+            word-break: break-all;
+        }
+
+        /* 入力フォーム */
+        .pwd-input { 
+            padding: 12px 15px; 
+            font-size: 16px; 
+            width: 80%; 
+            border: 2px solid #ffe3e8;
+            border-radius: 30px;
+            outline: none;
+            text-align: center;
+            color: #5c3a41;
+            background-color: #fffafb;
+            transition: border-color 0.3s;
+        }
+        .pwd-input:focus {
+            border-color: #FBAED2; 
+        }
+
+        /* ひらくボタン */
+        .open-btn { 
+            margin-top: 20px;
+            padding: 12px 35px; 
+            font-size: 16px; 
+            font-weight: bold;
+            cursor: pointer; 
+            background: #ff8ca3; 
+            color: white; 
+            border: none; 
+            border-radius: 30px; 
+            box-shadow: 0 4px 10px rgba(255, 140, 163, 0.3);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .open-btn:hover {
+            background: #ff718d;
+            transform: translateY(-1px);
+        }
+
+        /* 隠されている画像エリア */
+        #secret-area { 
+            display: none; 
+            margin-top: 25px; 
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        #secret-area h3 {
+            color: #ff6b8b;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
         
-        /* チャンネル登録誘導エリア */
-        .funnel-box { background: #fff0f3; padding: 20px; border-radius: 15px; margin-bottom: 25px; text-align: left; border: 2px solid #ff8ca3; }
-        .check-item { display: block; margin: 10px 0; font-weight: bold; cursor: pointer; }
-        .sub-btn { display: block; background: #ff0000; color: white; padding: 10px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 5px 0 15px 0; text-align: center; }
-        
-        .pwd-input { padding: 12px; width: 80%; border: 2px solid #ffe3e8; border-radius: 30px; text-align: center; margin-bottom: 15px; outline: none; }
-        .open-btn { padding: 12px 35px; border: none; border-radius: 30px; background: #ff8ca3; color: white; font-weight: bold; cursor: pointer; }
-        
-        #secret-area { display: none; }
-        #secret-area img { max-width: 100%; border-radius: 15px; margin: 20px 0; }
-        .yt-btn { display: inline-block; padding: 10px 20px; background: #ff6b8b; color: white; text-decoration: none; border-radius: 20px; margin-top: 10px; font-weight: bold; }
+        /* メッセージと保存方法の案内テキスト */
+        .thank-you-msg {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .save-tip {
+            font-size: 12px;
+            color: #8c6b73;
+            margin-bottom: 15px;
+            background: #fff0f3;
+            padding: 6px 12px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* オリジナル画像 */
+        #secret-area img { 
+            max-width: 100%; 
+            height: auto; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        /* YouTubeリンク用のボタングループ */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .yt-btn {
+            flex: 1;
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #ff6b8b;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(255, 107, 139, 0.2);
+            transition: background 0.2s, transform 0.2s;
+        }
+        .yt-btn:hover {
+            background-color: #ff476c;
+            transform: translateY(-1px);
+        }
+
+        /* 正解したとき、ふわっと表示させるアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
 <div class="card">
     <div id="input-stage">
-        <h2>🍓 特典獲得への道 🍓</h2>
-        <div class="funnel-box">
-            <p>STEP 1: チャンネル登録</p>
-            <a href="https://youtube.com/@masirooukoku" class="sub-btn" target="_blank">真白ぴんくを登録！</a>
-            <a href="https://youtube.com/@hoshizoramoffy" class="sub-btn" target="_blank">もっふぃを登録！</a>
-            <p>STEP 2: チェックを入れる</p>
-            <label class="check-item"><input type="checkbox" id="check-m"> 真白ぴんく登録済み</label>
-            <label class="check-item"><input type="checkbox" id="check-o"> もっふぃ登録済み</label>
+        <h2>とくてん獲得条件 🍓</h2>
+        
+        <div class="upload-zone">
+            <p>2人のチャンネル登録がわかる<br>スクリーンショットを添付してね！</p>
+            <label class="file-label">
+                画像をえらぶ
+                <input type="checkbox" id="check-masiro" style="display:none;"> <input type="file" id="screenshot-input" accept="image/*" onchange="updateFileName()">
+            </label>
+            <div id="file-name">まだ画像がえらばれていません</div>
         </div>
-        <input type="text" id="password-input" class="pwd-input" placeholder="合言葉を入力">
+
+        <input type="text" id="password-input" class="pwd-input" placeholder="あつめた合言葉を入力してね">
         <br>
-        <button class="open-btn" onclick="checkPassword()">特典をひらく！</button>
+        <button class="open-btn" onclick="checkPassword()">ひらく</button>
     </div>
 
     <div id="secret-area">
         <h3>せいかい！おめでとう 🍓</h3>
-        <img src="present.jpg" alt="特典画像">
-        <p>画像を長押しで保存してね！</p>
-        <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
-        <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
+        
+        <div class="thank-you-msg">
+            ご参加ありがとうございました！<br>
+            これからもYouTube見てね✨（見てねくま！）
+        </div>
+        
+        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
+        
+        <br>
+        <img src="present.jpg" alt="オリジナル画像" type="image/png">
+        
+        <div class="btn-group">
+            <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
+            <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
+        </div>
     </div>
 </div>
 
 <script>
+// 画像が選ばれたらファイル名を表示する処理
+function updateFileName() {
+    const input = document.getElementById('screenshot-input');
+    const fileNameDiv = document.getElementById('file-name');
+    if (input.files.length > 0) {
+        fileNameDiv.innerText = "選択済み： " + input.files[0].name;
+        fileNameDiv.style.color = "#ff6b8b";
+        fileNameDiv.style.fontWeight = "bold";
+    } else {
+        fileNameDiv.innerText = "まだ画像がえらばれていません";
+        fileNameDiv.style.color = "#8c6b73";
+        fileNameDiv.style.fontWeight = "normal";
+    }
+}
+
 function checkPassword() {
     let input = document.getElementById('password-input').value.trim();
-    // カタカナひらがな変換
-    input = input.replace(/[\u30a1-\u30f6]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60));
     
-    const c1 = document.getElementById('check-m').checked;
-    const c2 = document.getElementById('check-o').checked;
+    // カタカナの「ダイスキ」をひらがなの「だいすき」に変換する処理
+    input = input.replace(/[\u30a1-\u30f6]/g, function(match) {
+        return String.fromCharCode(match.charCodeAt(0) - 0x60);
+    });
 
-    if (!c1 || !c2) {
-        alert('まずは2人のチャンネル登録をお願いします！');
-        return;
-    }
-    if (input === 'だいすき') {
-        document.getElementById('input-stage').style.display = 'none';
-        document.getElementById('secret-area').style.display = 'block';
+    // スクショ画像が添付されているかチェック
+    const fileInput = document.getElementById('screenshot-input');
+    const isFileUploaded = fileInput.files.length > 0;
+
+    const secretArea = document.getElementById('secret-area');
+    const inputStage = document.getElementById('input-stage');
+    
+    // 条件：画像が選ばれていて、かつ合言葉が「だいすき」
+    if (!isFileUploaded) {
+        alert('チャンネル登録のスクリーンショットを添付してね！');
+    } else if (input === 'だいすき') {
+        inputStage.style.display = 'none'; 
+        secretArea.style.display = 'block'; 
     } else {
-        alert('合言葉が違うみたい…動画をもう一度見てみてね！');
+        alert('あいことばがちがうみたい…？もう一度入力してみてね！');
     }
 }
 </script>
+
 </body>
 </html>
