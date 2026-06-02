@@ -52,12 +52,12 @@
             font-weight: bold;
             color: #ff6b8b;
         }
-        /* 本物のアップロードボタンは隠して可愛くする */
+        /* ボタンのデザイン */
         .file-label {
             display: inline-block;
-            padding: 8px 15px;
+            padding: 8px 20px;
             background: #ffffff;
-            border: 1px solid #ffb6c1;
+            border: 2px solid #ffb6c1;
             border-radius: 20px;
             cursor: pointer;
             font-size: 13px;
@@ -68,6 +68,7 @@
         .file-label:hover {
             background: #ffeff3;
         }
+        /* 本物の選択ボタンは隠す */
         #screenshot-input {
             display: none;
         }
@@ -190,83 +191,3 @@
 <div class="card">
     <div id="input-stage">
         <h2>とくてん獲得条件 🍓</h2>
-        
-        <div class="upload-zone">
-            <p>2人のチャンネル登録がわかる<br>スクリーンショットを添付してね！</p>
-            <label class="file-label">
-                画像をえらぶ
-                <input type="checkbox" id="check-masiro" style="display:none;"> <input type="file" id="screenshot-input" accept="image/*" onchange="updateFileName()">
-            </label>
-            <div id="file-name">まだ画像がえらばれていません</div>
-        </div>
-
-        <input type="text" id="password-input" class="pwd-input" placeholder="あつめた合言葉を入力してね">
-        <br>
-        <button class="open-btn" onclick="checkPassword()">ひらく</button>
-    </div>
-
-    <div id="secret-area">
-        <h3>せいかい！おめでとう 🍓</h3>
-        
-        <div class="thank-you-msg">
-            ご参加ありがとうございました！<br>
-            これからもYouTube見てね✨（見てねくま！）
-        </div>
-        
-        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
-        
-        <br>
-        <img src="present.jpg" alt="オリジナル画像" type="image/png">
-        
-        <div class="btn-group">
-            <a href="https://youtube.com/@masirooukoku" class="yt-btn" target="_blank">真白ぴんく 👑</a>
-            <a href="https://youtube.com/@hoshizoramoffy" class="yt-btn" target="_blank">もっふぃ 🧸</a>
-        </div>
-    </div>
-</div>
-
-<script>
-// 画像が選ばれたらファイル名を表示する処理
-function updateFileName() {
-    const input = document.getElementById('screenshot-input');
-    const fileNameDiv = document.getElementById('file-name');
-    if (input.files.length > 0) {
-        fileNameDiv.innerText = "選択済み： " + input.files[0].name;
-        fileNameDiv.style.color = "#ff6b8b";
-        fileNameDiv.style.fontWeight = "bold";
-    } else {
-        fileNameDiv.innerText = "まだ画像がえらばれていません";
-        fileNameDiv.style.color = "#8c6b73";
-        fileNameDiv.style.fontWeight = "normal";
-    }
-}
-
-function checkPassword() {
-    let input = document.getElementById('password-input').value.trim();
-    
-    // カタカナの「ダイスキ」をひらがなの「だいすき」に変換する処理
-    input = input.replace(/[\u30a1-\u30f6]/g, function(match) {
-        return String.fromCharCode(match.charCodeAt(0) - 0x60);
-    });
-
-    // スクショ画像が添付されているかチェック
-    const fileInput = document.getElementById('screenshot-input');
-    const isFileUploaded = fileInput.files.length > 0;
-
-    const secretArea = document.getElementById('secret-area');
-    const inputStage = document.getElementById('input-stage');
-    
-    // 条件：画像が選ばれていて、かつ合言葉が「だいすき」
-    if (!isFileUploaded) {
-        alert('チャンネル登録のスクリーンショットを添付してね！');
-    } else if (input === 'だいすき') {
-        inputStage.style.display = 'none'; 
-        secretArea.style.display = 'block'; 
-    } else {
-        alert('あいことばがちがうみたい…？もう一度入力してみてね！');
-    }
-}
-</script>
-
-</body>
-</html>
