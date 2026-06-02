@@ -5,62 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プレゼントページ</title>
     <style>
-        /* 全体の背景（ミルキーピンク） */
-        body { 
-            background-color: #FBAED2 !important; 
-            color: #5c3a41; 
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #FBAED2 !important;
+        }
+        body {
+            color: #5c3a41;
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            align-items: flex-start;
+            padding: 30px 15px;
             box-sizing: border-box;
-            position: relative;
+            overflow-y: auto;
         }
-
-        /* 全体を囲む白ボックス（絶対に消えないように強制配置） */
-        .card { 
-            background: #ffffff !important; 
-            padding: 40px 30px; 
+        .card {
+            background: #ffffff !important;
+            padding: 35px 20px;
             width: 100%;
-            max-width: 420px;
-            text-align: center; 
-            border-radius: 20px; 
-            box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4); 
+            max-width: 400px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(251, 174, 210, 0.4);
             display: block !important;
-            position: relative;
-            z-index: 10 !important; /* 管理画面より後ろ、背景より前に固定 */
+            box-sizing: border-box;
+            margin: 0 auto;
         }
-
-        /* タイトル */
         h2 {
-            font-size: 20px;
+            font-size: 19px;
             margin-top: 0;
             margin-bottom: 20px;
-            color: #ff6b8b; 
+            color: #ff6b8b;
             letter-spacing: 0.5px;
             line-height: 1.4;
         }
-
-        /* 獲得ページのタイトル（ピンク色） */
         .success-title {
             color: #ff6b8b;
-            font-size: 22px;
+            font-size: 21px;
             font-weight: bold;
             margin-bottom: 20px;
         }
-
-        /* 横並びボタンのグループ */
         .channel-group {
             display: flex;
             gap: 10px;
             justify-content: center;
             margin-bottom: 20px;
         }
-        
-        /* 登録用の小ぶりな可愛いボタン */
         .sub-btn {
             flex: 1;
             display: inline-block;
@@ -70,22 +63,21 @@
             text-decoration: none;
             border-radius: 15px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
             box-shadow: 0 3px 6px rgba(255, 140, 163, 0.2);
             transition: background 0.2s;
         }
         .sub-btn:hover {
             background-color: #ff718d;
         }
-
-        /* スクショアップロードエリア */
         .upload-zone {
             background: #fff0f3;
-            padding: 15px 15px;
+            padding: 15px 12px;
             border-radius: 15px;
             margin-bottom: 15px;
-            font-size: 13px;
+            font-size: 12px;
             border: 2px dashed #ffb6c1;
+            box-sizing: border-box;
         }
         .upload-zone p {
             margin: 0 0 10px 0;
@@ -93,42 +85,34 @@
             color: #ff6b8b;
             line-height: 1.4;
         }
-        
-        /* ファイル入力フォーム */
         .safe-file-input {
-            font-size: 12px;
+            font-size: 11px;
             color: #5c3a41;
             max-width: 100%;
         }
-        
-        /* 画像プレビューエリア */
         .preview-area {
             margin-top: 10px;
             display: none;
         }
         .preview-area img {
             max-width: 100%;
-            max-height: 120px;
+            max-height: 100px;
             border-radius: 10px;
             border: 2px solid #ffe3e8;
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
-
-        /* 入力フォームの案内テキスト */
         .input-guide {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #ff6b8b;
-            margin-top: 20px;
+            margin-top: 15px;
             margin-bottom: 8px;
             text-align: center;
         }
-
-        /* 合言葉入力フォーム */
-        .pwd-input { 
-            padding: 12px 15px; 
-            font-size: 16px; 
-            width: 85%; 
+        .pwd-input {
+            padding: 12px 15px;
+            font-size: 16px;
+            width: 90%;
             border: 2px solid #ffe3e8;
             border-radius: 30px;
             outline: none;
@@ -140,20 +124,18 @@
             box-sizing: border-box;
         }
         .pwd-input:focus {
-            border-color: #FBAED2; 
+            border-color: #FBAED2;
         }
-
-        /* 回答ボタン（ひらく） */
-        .open-btn { 
-            margin-top: 15px;
-            padding: 12px 45px; 
-            font-size: 16px; 
+        .open-btn {
+            margin-top: 10px;
+            padding: 12px 45px;
+            font-size: 16px;
             font-weight: bold;
-            cursor: pointer; 
-            background: #ff8ca3; 
-            color: white; 
-            border: none; 
-            border-radius: 30px; 
+            cursor: pointer;
+            background: #ff8ca3;
+            color: white;
+            border: none;
+            border-radius: 30px;
             box-shadow: 0 4px 10px rgba(255, 140, 163, 0.3);
             transition: background 0.2s, transform 0.2s;
         }
@@ -161,15 +143,11 @@
             background: #ff718d;
             transform: translateY(-1px);
         }
-
-        /* 隠されている画像エリア */
-        #secret-area { 
-            display: none; 
-            margin-top: 5px; 
+        #secret-area {
+            display: none;
+            margin-top: 5px;
             animation: fadeIn 0.6s ease-out forwards;
         }
-        
-        /* サンクスメッセージ（茶色の文字） */
         .thank-you-msg {
             font-size: 14px;
             line-height: 1.6;
@@ -177,8 +155,6 @@
             font-weight: bold;
             color: #5c3a41;
         }
-
-        /* 保存のコツ案内 */
         .save-tip {
             font-size: 12px;
             color: #8c6b73;
@@ -189,17 +165,13 @@
             display: inline-block;
             font-weight: bold;
         }
-
-        /* オリジナル特典画像 */
-        #secret-area img.present-img { 
-            max-width: 100%; 
-            height: auto; 
-            border-radius: 15px; 
+        #secret-area img.present-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             margin-bottom: 25px;
         }
-
-        /* 最下部の刻印テキスト */
         .footer-logo {
             font-size: 16px;
             font-weight: bold;
@@ -207,8 +179,6 @@
             letter-spacing: 1px;
             margin-top: 10px;
         }
-
-        /* 秘密の管理用鍵マーク */
         .admin-trigger {
             display: inline-block;
             font-size: 11px;
@@ -222,14 +192,12 @@
         .admin-trigger:hover {
             opacity: 1;
         }
-
-        /* 💡 バグを完全に潰した管理用モーダルの新スタイル */
         .admin-modal {
-            display: none; /* 最初は絶対に非表示 */
+            display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(92, 58, 65, 0.7);
-            z-index: 99999 !important; /* 何があっても一番手前に来るように強制 */
+            z-index: 99999 !important;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -243,12 +211,6 @@
             max-width: 360px;
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-        .admin-content h3 {
-            margin-top: 0;
-            color: #ff6b8b;
-            font-size: 18px;
-            margin-bottom: 20px;
         }
         .stat-item {
             display: flex;
@@ -279,4 +241,202 @@
             color: white;
             border: none;
             border-radius: 20px;
-            padding: 5px 1
+            padding: 5px 15px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+        .reset-btn:hover {
+            opacity: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="input-stage">
+        <h2>🕊ぴんくらっしゅ謎解きキャンペーン<br>特典ページ🧸</h2>
+        
+        <div class="channel-group">
+            <a href="https://youtube.com/@masirooukoku" target="_blank" class="sub-btn" onclick="logAction('p1_masiro')">真白ぴんく 👑</a>
+            <a href="https://youtube.com/@hoshizoramoffy" target="_blank" class="sub-btn" onclick="logAction('p1_moffy')">もっふぃ 🧸</a>
+        </div>
+        
+        <div class="upload-zone">
+            <p>真白ぴんくのチャンネル登録はお済みですか？<br>こちらにアップしてください 👑</p>
+            <input type="file" id="screenshot-masiro" class="safe-file-input" accept="image/*" onchange="previewImage('screenshot-masiro', 'preview-masiro-container', 'preview-masiro-img')">
+            
+            <div class="preview-area" id="preview-masiro-container">
+                <img id="preview-masiro-img" src="" alt="真白ぴんくスクショプレビュー">
+            </div>
+        </div>
+
+        <div class="upload-zone">
+            <p>もっふぃのチャンネル登録はお済みですか？<br>こちらにアップしてください 🧸</p>
+            <input type="file" id="screenshot-moffy" class="safe-file-input" accept="image/*" onchange="previewImage('screenshot-moffy', 'preview-moffy-container', 'preview-moffy-img')">
+            
+            <div class="preview-area" id="preview-moffy-container">
+                <img id="preview-moffy-img" src="" alt="もっふぃスクショプレビュー">
+            </div>
+        </div>
+
+        <div class="input-guide">4つの動画に隠された合言葉を入力してね</div>
+        <input type="text" id="password-input" class="pwd-input" placeholder="集めた合言葉を入力してね">
+        <br>
+        <button class="open-btn" onclick="checkPassword()">回答する</button>
+    </div>
+
+    <div id="secret-area">
+        <div class="success-title">🕊大正解おめでとう🧸</div>
+        
+        <div class="thank-you-msg">
+            キャンペーンにご参加いただきありがとうございました！<br>
+            これからもYouTube見てね✨（見てねくま！）
+        </div>
+
+        <div class="channel-group" style="margin-bottom: 25px;">
+            <a href="https://youtube.com/@masirooukoku" target="_blank" class="sub-btn" style="padding: 10px;" onclick="logAction('p2_masiro')">真白ぴんく 👑</a>
+            <a href="https://youtube.com/@hoshizoramoffy" target="_blank" class="sub-btn" style="padding: 10px;" onclick="logAction('p2_moffy')">もっふぃ 🧸</a>
+        </div>
+        
+        <div class="save-tip">💡 画像を長押し、または右クリックで保存してね！</div>
+        
+        <img src="present.jpg" alt="オリジナル画像" type="image/png" class="present-img">
+        
+        <div class="footer-logo">WONDer PO</div>
+    </div>
+
+    <div class="admin-trigger" onclick="openAdminModal()">🔑</div>
+</div>
+
+<div class="admin-modal" id="admin-modal">
+    <div class="admin-content">
+        <h3>📊 ぴんくらっしゅ管理画面</h3>
+        <div class="stat-item">
+            <span>合計正解者数:</span>
+            <span class="stat-count" id="count-success">読み込み中...</span>
+        </div>
+        <div class="stat-item">
+            <span>P1 真白ボタン押下数:</span>
+            <span class="stat-count" id="count-p1-masiro">読み込み中...</span>
+        </div>
+        <div class="stat-item">
+            <span>P1 もっふぃボタン押下数:</span>
+            <span class="stat-count" id="count-p1-moffy">読み込み中...</span>
+        </div>
+        <div class="stat-item">
+            <span>P2 真白ボタン押下数:</span>
+            <span class="stat-count" id="count-p2-masiro">読み込み中...</span>
+        </div>
+        <div class="stat-item">
+            <span>P2 もっふぃボタン押下数:</span>
+            <span class="stat-count" id="count-p2-moffy">読み込み中...</span>
+        </div>
+        <button class="admin-close-btn" onclick="closeAdminModal()">閉じる</button>
+        <br>
+        <button class="reset-btn" onclick="resetAllData()">データをすべてリセット</button>
+    </div>
+</div>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyrKK1buV_nx0T3dzUU3_wV16Y5Tys2U5nJyuLaFGDScd7bcAPaz5nNJIGw6aU_WxY2Dg/exec";
+const ADMIN_PASSWORD = "pinkrush2026";
+
+function logAction(actionType) {
+    fetch(GAS_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: actionType })
+    }).catch(err => console.log(err));
+}
+
+function previewImage(inputId, containerId, imgId) {
+    const input = document.getElementById(inputId);
+    const previewContainer = document.getElementById(containerId);
+    const imagePreview = document.getElementById(imgId);
+    
+    if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            previewContainer.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        previewContainer.style.display = 'none';
+    }
+}
+
+function checkPassword() {
+    let input = document.getElementById('password-input').value.trim();
+    input = input.replace(/[\u30a1-\u30f6]/g, function(match) {
+        return String.fromCharCode(match.charCodeAt(0) - 0x60);
+    });
+
+    const fileMasiro = document.getElementById('screenshot-masiro');
+    const fileMoffy = document.getElementById('screenshot-moffy');
+    
+    const isMasiroUploaded = fileMasiro.files && fileMasiro.files.length > 0;
+    const isMoffyUploaded = fileMoffy.files && fileMoffy.files.length > 0;
+
+    const secretArea = document.getElementById('secret-area');
+    const inputStage = document.getElementById('input-stage');
+    
+    if (!isMasiroUploaded || !isMoffyUploaded) {
+        alert('真白ぴんくと、もっふぃ、両方のチャンネル登録スクリーンショットを添付してね！');
+    } else if (input === 'だいすき') {
+        logAction("success");
+        inputStage.style.display = 'none';
+        secretArea.style.display = 'block';
+        window.scrollTo(0, 0);
+    } else {
+        alert('あいことばがちがうみたい…？もう一度入力してみてね！');
+    }
+}
+
+function openAdminModal() {
+    const password = prompt("管理者パスワードを入力してください：");
+    if (password === ADMIN_PASSWORD) {
+        document.getElementById('admin-modal').style.display = 'flex';
+        fetchSpreadsheetData();
+    } else if (password !== null) {
+        alert("パスワードが違います。");
+    }
+}
+
+function closeAdminModal() {
+    document.getElementById('admin-modal').style.display = 'none';
+}
+
+function fetchSpreadsheetData() {
+    document.getElementById('count-success').innerText = "シート本体の行数";
+    document.getElementById('count-p1-masiro').innerText = "を確認してね！";
+    document.getElementById('count-p1-moffy').innerText = "✨";
+    document.getElementById('count-p2-masiro').innerText = "リアルタイムで";
+    document.getElementById('count-p2-moffy').innerText = "記録中！";
+}
+
+function resetAllData() {
+    if (confirm("本当にスプレッドシートのログデータをすべて削除（リセット）しますか？")) {
+        fetch(GAS_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ type: "reset" })
+        }).then(() => {
+            alert("リセット要求を送信しました！スプレッドシートが空っぽになります。");
+            closeAdminModal();
+        }).catch(err => alert("エラーが発生しました: " + err));
+    }
+}
+</script>
+
+</body>
+</html>
