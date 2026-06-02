@@ -80,33 +80,34 @@
         /* スクショアップロードエリア */
         .upload-zone {
             background: #fff0f3;
-            padding: 20px 15px;
+            padding: 15px 15px;
             border-radius: 15px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 13px;
             border: 2px dashed #ffb6c1;
         }
         .upload-zone p {
-            margin: 0 0 15px 0;
+            margin: 0 0 10px 0;
             font-weight: bold;
             color: #ff6b8b;
+            line-height: 1.4;
         }
         
         /* ファイル入力フォーム */
         .safe-file-input {
-            font-size: 13px;
+            font-size: 12px;
             color: #5c3a41;
             max-width: 100%;
         }
         
         /* 画像プレビューエリア */
         .preview-area {
-            margin-top: 15px;
+            margin-top: 10px;
             display: none;
         }
         .preview-area img {
             max-width: 100%;
-            max-height: 150px;
+            max-height: 120px;
             border-radius: 10px;
             border: 2px solid #ffe3e8;
             box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -117,6 +118,7 @@
             font-size: 14px;
             font-weight: bold;
             color: #ff6b8b;
+            margin-top: 20px;
             margin-bottom: 8px;
             text-align: center;
         }
@@ -205,7 +207,7 @@
             margin-top: 10px;
         }
 
-        /* 💡 秘密の管理用鍵マーク */
+        /* 秘密の管理用鍵マーク */
         .admin-trigger {
             display: inline-block;
             font-size: 11px;
@@ -220,7 +222,7 @@
             opacity: 1;
         }
 
-        /* 💡 管理用モーダル（ポップアップ窓） */
+        /* 管理用モーダル（ポップアップ窓） */
         .admin-modal {
             display: none;
             position: fixed;
@@ -288,44 +290,4 @@
         /* ふわっと表示させるアニメーション */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <div id="input-stage">
-        <h2>🕊ぴんくらっしゅ謎解きキャンペーン<br>特典ページ🧸</h2>
-        
-        <div class="channel-group">
-            <a href="https://youtube.com/@masirooukoku" target="_blank" class="sub-btn" onclick="logAction('p1_masiro')">真白ぴんく 👑</a>
-            <a href="https://youtube.com/@hoshizoramoffy" target="_blank" class="sub-btn" onclick="logAction('p1_moffy')">もっふぃ 🧸</a>
-        </div>
-        
-        <div class="upload-zone">
-            <p>2人のチャンネル登録がわかる<br>スクリーンショットを添付してね！</p>
-            <input type="file" id="screenshot-input" class="safe-file-input" accept="image/*" onchange="updateFileStatusAndPreview()">
-            
-            <div class="preview-area" id="preview-container">
-                <img id="image-preview" src="" alt="スクショのプレビュー">
-            </div>
-        </div>
-
-        <div class="input-guide">4つの動画に隠された合言葉を入力してね</div>
-        <input type="text" id="password-input" class="pwd-input" placeholder="集めた合言葉を入力してね">
-        <br>
-        <button class="open-btn" onclick="checkPassword()">回答する</button>
-    </div>
-
-    <div id="secret-area">
-        <div class="success-title">🕊大正解おめでとう🧸</div>
-        
-        <div class="thank-you-msg">
-            キャンペーンにご参加いただきありがとうございました！<br>
-            これからもYouTube見てね✨（見てねくま！）
-        </div>
-
-        <div class="channel-group" style="margin-bottom: 25px;">
-            <a href="https://youtube.com/@masirooukoku" target="_blank" class="sub-btn" style="padding: 10px;" onclick="logAction('p2_masiro')">真白ぴんく 👑</a>
-            <a href="https://youtube.com/@hoshizoramoffy" target="_blank" class="sub-btn" style="padding: 10px;" onclick="logAction
+            to { opacity:
